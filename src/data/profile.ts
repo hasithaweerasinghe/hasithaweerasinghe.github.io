@@ -17,11 +17,11 @@ export const profile = {
     'system design',
   ],
   about: [
-    "I'm Hasitha, a software engineer who has been building on the web since 2018. I like the space where product meets engineering: turning fuzzy ideas into interfaces that feel fast, obvious and a little delightful.",
+    "I'm Hasitha, a software engineer who has been building on the web since 2015. I like the space where product meets engineering: turning fuzzy ideas into interfaces that feel fast, obvious and a little delightful.",
     'Most of my work lives in the JavaScript and TypeScript ecosystem: React, Next.js and Node. Lately I have been digging into end-to-end type safety, reliable testing and AI-powered apps.',
   ],
   facts: [
-    { label: 'Experience', value: '9+ years' },
+    { label: 'Experience', value: '10+ years' },
     { label: 'Based in', value: 'London, UK' },
   ],
 };
