@@ -119,13 +119,6 @@ export const projects: Project[] = [
     tags: ['React', 'TypeScript'],
     links: [{ label: 'Code', href: 'https://github.com/hasithaweerasinghe/react-gh-pages' }],
   },
-  {
-    title: 'Next.js on GitHub Pages',
-    kind: 'Template',
-    description: 'A statically exported Next.js site deployed to GitHub Pages.',
-    tags: ['Next.js', 'Static export'],
-    links: [{ label: 'Code', href: 'https://github.com/hasithaweerasinghe/next-gh-pages' }],
-  },
 ];
 
 export const contributions = [
