@@ -1,0 +1,94 @@
+---
+import { profile, socials } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="index mono">04</span>
+      <h2>Contact</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+
+    <p class="big reveal">
+      Have an idea worth <span class="serif">building?</span><br />
+      Let's talk.
+    </p>
+
+    <ul class="socials reveal">
+      {socials.map((s) => (
+        <li>
+          <a href={s.href} target="_blank" rel="noopener">
+            <span class="label">{s.label}</span>
+            <span class="handle mono">{s.handle}</span>
+            <span class="arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <footer class="container footer mono">
+    <span>© {year} {profile.name.first} {profile.name.last}</span>
+    <span>Built with Astro<span class="shortcut"> · press <span class="kbd" data-mod-key>⌘K</span> to navigate</span></span>
+  </footer>
+</section>
+
+<style>
+  .contact { padding-bottom: 32px; }
+
+  .big {
+    margin: 0 0 clamp(40px, 6vw, 72px);
+    font-size: clamp(2.6rem, 8vw, 6.5rem);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+
+    & .serif { color: var(--accent-text); }
+  }
+
+  .socials {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+
+    & li { border-bottom: 1px solid var(--line); }
+
+    & a {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 24px;
+      padding: 26px 4px;
+      text-decoration: none;
+      transition: padding 0.4s var(--ease-out), color 0.2s;
+
+      &:hover { padding-inline: 16px; color: var(--accent-text); }
+    }
+
+    & .label { font-size: clamp(1.5rem, 3.5vw, 2.25rem); font-weight: 600; letter-spacing: -0.04em; }
+    & .handle { color: var(--muted); }
+    & .arrow { font-size: 1.5rem; transition: transform 0.4s var(--ease-out); }
+    & a:hover .arrow { transform: translate(4px, -4px); }
+  }
+
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: clamp(80px, 12vw, 160px);
+    color: var(--faint);
+  }
+
+  @media (max-width: 520px) {
+    .socials .handle { display: none; }
+  }
+
+  @media (pointer: coarse) {
+    .shortcut { display: none; }
+  }
+</style>

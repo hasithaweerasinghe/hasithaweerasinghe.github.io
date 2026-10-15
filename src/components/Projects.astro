@@ -1,0 +1,151 @@
+---
+import { projects } from '../data/profile';
+---
+
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="index mono">02</span>
+      <h2>Selected work</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+
+    <ul class="grid">
+      {projects.map((p, i) => (
+        <li class:list={['card', 'reveal', { featured: p.featured }]} data-spotlight>
+          <div class="top mono">
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <span class="kind">{p.kind}</span>
+          </div>
+          <h3>{p.title}</h3>
+          <p>{p.description}</p>
+          <ul class="tags mono" aria-label="Tech">
+            {p.tags.map((t) => <li>{t}</li>)}
+          </ul>
+          <div class="links">
+            {p.links.map((l) => (
+              <a href={l.href} target="_blank" rel="noopener">
+                {l.label} <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    --mx: 50%;
+    --my: 50%;
+    position: relative;
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(22px, 3vw, 32px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-raised);
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.5s var(--ease-out), border-color 0.3s;
+
+    /* Cursor-following spotlight; --mx/--my are set from the pointer position. */
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(420px circle at var(--mx) var(--my), var(--glow), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in oklch, var(--accent-text) 45%, var(--line));
+      &::before { opacity: 1; }
+    }
+
+    &.featured { grid-column: span 3; min-height: 340px; }
+
+    &.featured h3 { font-size: clamp(2rem, 4vw, 3rem); }
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    color: var(--faint);
+    margin-bottom: auto;
+    padding-bottom: 40px;
+
+    & .kind { color: var(--accent-text); }
+  }
+
+  h3 {
+    margin: 0 0 12px;
+    font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  p {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 1rem;
+    text-wrap: pretty;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 24px;
+    padding: 0;
+    list-style: none;
+
+    & li {
+      padding: 3px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: auto;
+
+    & a {
+      font-weight: 500;
+      text-decoration: none;
+      background: linear-gradient(var(--accent-text), var(--accent-text)) 0 100% / 0 1px no-repeat;
+      transition: background-size 0.35s var(--ease-out);
+      &:hover { background-size: 100% 1px; }
+    }
+  }
+
+  @media (max-width: 960px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card, .card.featured { grid-column: span 1; }
+    .card.featured { grid-column: span 2; min-height: 0; }
+  }
+
+  @media (max-width: 620px) {
+    .grid { grid-template-columns: 1fr; }
+    .card, .card.featured { grid-column: auto; }
+  }
+</style>

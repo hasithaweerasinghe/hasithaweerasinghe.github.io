@@ -1,0 +1,100 @@
+---
+import { contributions } from '../data/profile';
+
+const fmt = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit', timeZone: 'UTC' });
+---
+
+<section class="section" id="open-source">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="index mono">03</span>
+      <h2>Open source</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="terminal reveal">
+      <div class="bar" aria-hidden="true">
+        <span></span><span></span><span></span>
+        <code class="mono">git log --author=hasitha --merged</code>
+      </div>
+      <ol class="log">
+        {contributions.map((c) => (
+          <li>
+            <a href={c.href} target="_blank" rel="noopener">
+              <span class="merged mono">merged</span>
+              <span class="title">{c.title}</span>
+              <span class="repo mono">{c.repo}</span>
+              <time class="mono" datetime={c.date}>{fmt.format(new Date(c.date))}</time>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .terminal {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-raised);
+    overflow: hidden;
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+
+    & span { width: 11px; height: 11px; border-radius: 50%; background: var(--line); }
+    & code { margin-left: 10px; color: var(--faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  }
+
+  .log { margin: 0; padding: 0; list-style: none; }
+
+  .log li + li { border-top: 1px dashed var(--line); }
+
+  .log a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'badge title date'
+      'badge repo date';
+    column-gap: 18px;
+    align-items: center;
+    padding: 20px clamp(18px, 3vw, 28px);
+    text-decoration: none;
+    transition: background-color 0.2s;
+
+    &:hover { background: color-mix(in oklch, var(--accent) 8%, transparent); }
+    &:hover .title { color: var(--accent-text); }
+  }
+
+  .merged {
+    grid-area: badge;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+
+  .title { grid-area: title; font-weight: 500; font-size: 1.1rem; transition: color 0.2s; }
+  .repo { grid-area: repo; color: var(--faint); overflow-wrap: anywhere; }
+  time { grid-area: date; color: var(--faint); white-space: nowrap; }
+
+  @media (max-width: 620px) {
+    .log a {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        'title title'
+        'repo repo'
+        'badge date';
+      row-gap: 6px;
+    }
+    .merged { justify-self: start; margin-top: 6px; }
+    time { align-self: end; }
+  }
+</style>

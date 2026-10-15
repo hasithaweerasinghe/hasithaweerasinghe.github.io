@@ -1,0 +1,182 @@
+---
+import { profile, skills } from '../data/profile';
+
+const fullName = `${profile.name.first} ${profile.name.last}`;
+---
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="index mono">01</span>
+      <h2>About</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="grid">
+      <figure class="portrait reveal">
+        <img src={profile.avatar} alt={`Portrait of ${fullName}`} width="480" height="480" loading="lazy" decoding="async" />
+        <figcaption class="mono">
+          <span>{fullName}</span>
+          <span class="faint">{profile.role}</span>
+        </figcaption>
+      </figure>
+
+      <div class="copy">
+        {profile.about.map((p, i) => <p class:list={['reveal', { lead: i === 0 }]}>{p}</p>)}
+
+        <dl class="facts reveal">
+          {profile.facts.map((f) => (
+            <div>
+              <dt class="mono">{f.label}</dt>
+              <dd>{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-label="Skills">
+    <ul class="track">
+      {skills.map((s) => <li>{s}</li>)}
+    </ul>
+    <ul class="track" aria-hidden="true">
+      {skills.map((s) => <li>{s}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(32px, 6vw, 88px);
+    align-items: start;
+  }
+
+  .portrait {
+    position: relative;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 10px);
+    background: var(--bg-raised);
+    rotate: -2deg;
+    transition: rotate 0.6s var(--ease-out);
+
+    &:hover { rotate: 0deg; }
+
+    & img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: var(--radius);
+      filter: grayscale(1) contrast(1.05);
+      transition: filter 0.6s var(--ease-out);
+    }
+
+    &:hover img { filter: none; }
+
+    & figcaption {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 6px 4px;
+    }
+  }
+
+  .faint { color: var(--faint); }
+
+  .copy p {
+    margin: 0 0 1.2em;
+    color: var(--muted);
+    font-size: 1.1rem;
+    text-wrap: pretty;
+  }
+
+  .copy .lead {
+    color: var(--text);
+    font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    margin: 40px 0 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--line);
+
+    & div { padding: 18px 20px; background: var(--bg); }
+    & dt { color: var(--faint); margin-bottom: 4px; }
+    & dd { margin: 0; font-weight: 500; }
+  }
+
+  .marquee {
+    --gap: clamp(24px, 4vw, 56px);
+    display: flex;
+    gap: var(--gap);
+    margin-top: clamp(80px, 10vw, 140px);
+    padding-block: 28px;
+    border-block: 1px solid var(--line);
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .track {
+    flex-shrink: 0;
+    display: flex;
+    gap: var(--gap);
+    min-width: 100%;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    animation: marquee 40s linear infinite;
+
+    & li {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: var(--gap);
+    }
+
+    & li::after {
+      content: '✦';
+      font-size: 0.5em;
+      color: var(--accent-text);
+    }
+
+    & li:nth-child(even) {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--muted);
+    }
+  }
+
+  .marquee:hover .track { animation-play-state: paused; }
+
+  @keyframes marquee {
+    to { transform: translateX(calc(-100% - var(--gap))); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; flex-wrap: wrap; justify-content: center; min-width: 0; }
+    .track[aria-hidden='true'] { display: none; }
+    .marquee { justify-content: center; }
+  }
+
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; }
+    .portrait { max-width: 340px; }
+  }
+</style>
