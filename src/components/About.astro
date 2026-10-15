@@ -38,10 +38,10 @@ const fullName = `${profile.name.first} ${profile.name.last}`;
 
   <div class="marquee" aria-label="Skills">
     <ul class="track">
-      {skills.map((s) => <li>{s}</li>)}
+      {skills.highlights.map((s) => <li>{s}</li>)}
     </ul>
     <ul class="track" aria-hidden="true">
-      {skills.map((s) => <li>{s}</li>)}
+      {skills.highlights.map((s) => <li>{s}</li>)}
     </ul>
   </div>
 </section>

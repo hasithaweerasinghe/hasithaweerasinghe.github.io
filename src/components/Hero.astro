@@ -9,10 +9,18 @@ const github = socials.find((s) => s.label === 'GitHub');
   <div class="glow" aria-hidden="true"></div>
 
   <div class="container content">
-    <p class="prompt mono">
-      <span class="status" aria-hidden="true"></span>
-      <span class="faint">~/</span>{profile.role.toLowerCase().replaceAll(' ', '-')}
-    </p>
+    {profile.openToWork ? (
+      <a class="prompt mono open" href="#contact">
+        <span class="status" aria-hidden="true"></span>
+        Open to opportunities
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    ) : (
+      <p class="prompt mono">
+        <span class="status" aria-hidden="true"></span>
+        <span class="faint">~/</span>{profile.role.toLowerCase().replaceAll(' ', '-')}
+      </p>
+    )}
 
     <h1>
       <span class="first">{profile.name.first}</span>
@@ -83,6 +91,21 @@ const github = socials.find((s) => s.label === 'GitHub');
     border-radius: 999px;
     background: color-mix(in oklch, var(--bg-raised) 70%, transparent);
     color: var(--muted);
+  }
+
+  .prompt.open {
+    color: var(--text);
+    text-decoration: none;
+    border-color: color-mix(in oklch, var(--accent-text) 40%, var(--line));
+    transition: border-color 0.2s, background-color 0.2s;
+
+    & .arrow { color: var(--accent-text); transition: transform 0.3s var(--ease-out); }
+
+    &:hover {
+      border-color: var(--accent-text);
+      background: color-mix(in oklch, var(--accent) 10%, var(--bg-raised));
+      & .arrow { transform: translateX(3px); }
+    }
   }
 
   .status {

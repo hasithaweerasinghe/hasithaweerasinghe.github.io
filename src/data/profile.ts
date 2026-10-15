@@ -7,6 +7,8 @@ export const profile = {
   tagline:
     'I build fast, thoughtful interfaces for the web, with a soft spot for React, TypeScript and good developer tooling.',
   avatar: 'https://github.com/hasithaweerasinghe.png?size=480',
+  // Shows the "Open to opportunities" badge in the hero. Set to false to hide it.
+  openToWork: true,
   // Rotating phrases in the hero's terminal line.
   exploring: [
     'end-to-end type safety with tRPC',
@@ -19,26 +21,55 @@ export const profile = {
     'Most of my work lives in the JavaScript and TypeScript ecosystem: React, Next.js and Node. Lately I have been digging into end-to-end type safety, reliable testing and AI-powered apps.',
   ],
   facts: [
-    { label: 'On GitHub since', value: '2018' },
-    { label: 'Focus', value: 'Frontend & full-stack' },
-    { label: 'Stack', value: 'TypeScript' },
+    { label: 'Experience', value: '9+ years' },
+    { label: 'Based in', value: 'London, UK' },
   ],
 };
 
-export const skills = [
-  'TypeScript',
-  'JavaScript',
-  'React',
-  'Next.js',
-  'Node.js',
-  'Redux',
-  'tRPC',
-  'Playwright',
-  'HTML & CSS',
-  'Vercel AI SDK',
-  'Git',
-  'GitHub Actions',
-];
+export const skills = {
+  // Scrolling banner under the About section.
+  highlights: [
+    'TypeScript',
+    'React',
+    'Next.js',
+    'Node.js',
+    'PostgreSQL',
+    'tRPC',
+    'Kysely',
+    'Zod',
+    'Playwright',
+    'AWS',
+    'Vercel AI SDK',
+    'MCP',
+  ],
+  // Grouped grid in the Skills section.
+  groups: [
+    {
+      title: 'Languages',
+      items: ['JavaScript', 'TypeScript', 'SQL', 'Python', 'HTML/CSS'],
+    },
+    {
+      title: 'Frontend',
+      items: ['React', 'Next.js', 'TanStack Query', 'Redux', 'RxJS', 'Mantine', 'Material UI', 'D3.js', 'Visx'],
+    },
+    {
+      title: 'Backend & data',
+      items: ['Node.js', 'PostgreSQL', 'Relational data modelling', 'REST APIs', 'tRPC', 'Kysely', 'GraphQL', 'Zod', 'NextAuth'],
+    },
+    {
+      title: 'Cloud & delivery',
+      items: ['AWS S3', 'AWS SQS', 'Route 53', 'CloudFront', 'CloudWatch', 'Docker', 'GitHub Actions', 'CI/CD', 'Backblaze B2', 'Sentry'],
+    },
+    {
+      title: 'Testing & security',
+      items: ['Jest', 'MSW', 'Playwright', 'Cypress', 'Audit logging', 'Access control', 'Semgrep', 'Gitleaks', 'ISO 27001 practices'],
+    },
+    {
+      title: 'AI engineering',
+      items: ['OpenAI models', 'Vercel AI SDK', 'Mastra', 'SQL-backed agents', 'MCP servers'],
+    },
+  ],
+};
 
 export type Project = {
   title: string;

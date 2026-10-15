@@ -1,0 +1,115 @@
+---
+import { skills } from '../data/profile';
+---
+
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="index mono">02</span>
+      <h2>Skills</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+
+    <ul class="grid">
+      {skills.groups.map((g, i) => (
+        <li class="group reveal" data-spotlight>
+          <div class="top mono">
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            <span class="count">{g.items.length} skills</span>
+          </div>
+          <h3>{g.title}</h3>
+          <ul class="chips mono" aria-label={g.title}>
+            {g.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .group {
+    --mx: 50%;
+    --my: 50%;
+    position: relative;
+    padding: clamp(22px, 3vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-raised);
+    overflow: hidden;
+    isolation: isolate;
+    transition: border-color 0.3s;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(360px circle at var(--mx) var(--my), var(--glow), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    &:hover {
+      border-color: color-mix(in oklch, var(--accent-text) 45%, var(--line));
+      &::before { opacity: 1; }
+    }
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    color: var(--faint);
+    margin-bottom: 28px;
+
+    & .count { color: var(--accent-text); }
+  }
+
+  h3 {
+    margin: 0 0 18px;
+    font-size: clamp(1.35rem, 2.2vw, 1.6rem);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    & li {
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+    }
+
+    & li:hover {
+      color: var(--accent-ink);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+  }
+
+  @media (max-width: 960px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 620px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
